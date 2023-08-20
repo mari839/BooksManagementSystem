@@ -1,4 +1,4 @@
-﻿namespace BooksManagementSystem.Entities
+namespace BooksManagementSystem.Entities
 {
     public class Author
     {
@@ -7,6 +7,6 @@
         public string LastName { get; set; }
         public int Age { get; set; }
         public string Country { get; set; }
-        public ICollection<Book> Books { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }
