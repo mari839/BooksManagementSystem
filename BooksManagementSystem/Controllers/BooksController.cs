@@ -1,4 +1,4 @@
-﻿using BooksManagementSystem.CommandsAndHandlers.Command;
+using BooksManagementSystem.CommandsAndHandlers.Command;
 using BooksManagementSystem.CommandsAndHandlers.Query;
 using BooksManagementSystem.Entities;
 using MediatR;
@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BooksManagementSystem.Controllers
 {
-    public class BooksController : Controller
+    [Route("api/books")]
+    [ApiController]
+    public class BooksController : ControllerBase
     {
 
-        private IMediator mediator;
+        private readonly IMediator mediator;
         public BooksController(IMediator mediator)
         {
             this.mediator = mediator;
@@ -23,33 +25,16 @@ namespace BooksManagementSystem.Controllers
             return employee;
         }
 
-        [HttpPost]
-        
-
-        // GET: BooksController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         // POST: BooksController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<Book> CreateBook(Book book)
+        [HttpPost("create")]
+        public async Task<Book> CreateBook(CreateBookCommand createBookCommand)
         {
-            var result = await mediator.Send(new CreateBookCommand(book.ISBN, book.AuthorId, book.Title, book.PublicationYear, book.Description, book.Rating));
+            var result = await mediator.Send(createBookCommand);
             return result;
         }
 
-        // GET: BooksController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
         // POST: BooksController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost("edit")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -58,19 +43,12 @@ namespace BooksManagementSystem.Controllers
             }
             catch
             {
-                return View();
+                return null;
             }
         }
 
-        // GET: BooksController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         // POST: BooksController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpDelete("delete")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
@@ -79,7 +57,7 @@ namespace BooksManagementSystem.Controllers
             }
             catch
             {
-                return View();
+                return null;
             }
         }
     }
