@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using BooksManagementSystem.Entities;
 using Microsoft.Extensions.Configuration;
 
@@ -26,20 +26,27 @@ namespace BooksManagementSystem.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Author>().HasData(
+                    new Author
+                    {
+                        Id = 1,
+                        Age = 1,
+                        Country ="asda",
+                        FirstName = "asf",
+                        LastName = "gf",
+                        
+                    }
+                );
             modelBuilder.Entity<Book>().HasData(
                 new Book
                 {
                     AuthorId = 1,
-                    ISBN = "0-123-345",
-                    Author = new Author
-                    {
-                        Id = 1,
-                        Age = 1,
-                    },
+                    ISBN = "978-3-16-148410-0",
                     Description = "Description",
                     PublicationYear = 1245,
                     Rating = 9,
                     Title = "Title",
+                    Id =1,
                 }
             );
         }
