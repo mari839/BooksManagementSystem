@@ -49,6 +49,17 @@ namespace BooksManagementSystem.DbContexts
                     Id =1,
                 }
             );
+            modelBuilder.Entity<Author>().HasData(
+                    new Author
+                    {
+                        Id = 2,
+                        Age = 22,
+                        Country = "mari",
+                        FirstName = "tandashvili",
+                        LastName = "gsadasff",
+
+                    }
+                );
         }
 
     }

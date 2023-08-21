@@ -18,6 +18,13 @@ namespace BooksManagementSystem.Controllers
             this.mediator = mediator;
         }
 
+        [HttpGet]
+        public async Task<List<Book>> BookList()
+        {
+            var employee = await mediator.Send(new GetBookListQuery());
+            return employee;
+        }
+
         [HttpGet("{id}")]
         public async Task<Book> BookById(int id)
         {
@@ -27,38 +34,25 @@ namespace BooksManagementSystem.Controllers
 
         // POST: BooksController/Create
         [HttpPost("create")]
-        public async Task<Book> CreateBook(CreateBookCommand createBookCommand)
+        public async Task<ActionResult<Book>> CreateBook(CreateBookCommand createBookCommand)
         {
             var result = await mediator.Send(createBookCommand);
-            return result;
+            return Ok(result);
         }
+
 
         // POST: BooksController/Edit/5
-        [HttpPost("edit")]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpPut("edit")]
+        public async Task<int> Edit(EditBookCommand editBookCommand)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return null;
-            }
+            var bookToReturn = await mediator.Send(editBookCommand);
+            return bookToReturn;
         }
 
-        // POST: BooksController/Delete/5
-        [HttpDelete("delete")]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpDelete("id")]
+        public async Task<int> Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return null;
-            }
+            return await mediator.Send(new DeleteBookCommand(){ Id = id});
         }
     }
 }
