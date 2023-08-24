@@ -28,12 +28,13 @@ namespace BooksManagementSystem.Repositories
 
         public async  Task<Book> getBookById(int id)
         {
-            return await _bookDbContext.Books.Where(x => x.Id.Equals(id)).FirstOrDefaultAsync();
+            var book = await _bookDbContext.Books.Where(x => x.Id.Equals(id)).Include(a=> a.Author).FirstOrDefaultAsync();
+            return book;
         }
 
         public async Task<List<Book>> getBooksList()
         {
-            var result = await _bookDbContext.Books.OrderBy(b=>b.Id).ToListAsync();
+            var result = await _bookDbContext.Books.OrderBy(b=>b.Id).Include(a=> a.Author).ToListAsync();
             return result;
         }
 

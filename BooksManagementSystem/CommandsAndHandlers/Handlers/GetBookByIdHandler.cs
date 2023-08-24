@@ -1,23 +1,44 @@
 
 using BooksManagementSystem.CommandsAndHandlers.Query;
+using BooksManagementSystem.DTOs;
 using BooksManagementSystem.Entities;
 using BooksManagementSystem.Repositories;
 using MediatR;
 
 namespace BooksManagementSystem.CommandsAndHandlers.Handlers
 {
-    public class GetBookByIdHandler : IRequestHandler<GetBookByIdQuery, Book>
+    public class GetBookByIdHandler : IRequestHandler<GetBookByIdQuery, BookDto>
     {
         private readonly IBookRepository _bookRepository;
-
         public GetBookByIdHandler(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
         }
 
-        public async Task<Book> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
+        public async Task<BookDto> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _bookRepository.getBookById(request.Id);
+            var book = await _bookRepository.getBookById(request.Id);
+            
+                BookDto booktoReturn = new BookDto
+                {
+                    ISBN = book.ISBN,
+                    Description = book.Description,
+                    Author = new AuthorDto
+                    {
+                        Age = book.Author.Age,
+                        Country = book.Author.Country,
+                        FirstName = book.Author.FirstName,
+                        Id = book.Author.Id,
+                        LastName = book.Author.LastName,
+
+                    },
+                    AuthorId = book.AuthorId,
+                    Title = book.Title,
+                    PublicationYear = book.PublicationYear,
+                    Rating = book.Rating,
+
+                };
+                return booktoReturn;
         }
     }
 }

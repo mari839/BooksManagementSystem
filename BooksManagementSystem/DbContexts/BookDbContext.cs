@@ -27,16 +27,16 @@ namespace BooksManagementSystem.DbContexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Author>().HasData(
-                    new Author
-                    {
-                        Id = 1,
-                        Age = 1,
-                        Country ="asda",
-                        FirstName = "asf",
-                        LastName = "gf",
-                        
-                    }
-                );
+                new Author
+                {
+                    Id = 1,
+                    Age = 10,
+                    Country = "asda",
+                    FirstName = "asf",
+                    LastName = "gf",
+                }
+            );
+
             modelBuilder.Entity<Book>().HasData(
                 new Book
                 {
@@ -46,20 +46,21 @@ namespace BooksManagementSystem.DbContexts
                     PublicationYear = 1245,
                     Rating = 9,
                     Title = "Title",
-                    Id =1,
+                    Id = 1,
                 }
             );
-            modelBuilder.Entity<Author>().HasData(
-                    new Author
-                    {
-                        Id = 2,
-                        Age = 22,
-                        Country = "mari",
-                        FirstName = "tandashvili",
-                        LastName = "gsadasff",
 
-                    }
-                );
+            modelBuilder.Entity<Author>().HasData(
+                new Author
+                {
+                    Id = 2,
+                    Age = 22,
+                    Country = "mari",
+                    FirstName = "tandashvili",
+                    LastName = "gsadasff",
+
+                }
+            );
         }
 
     }

@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BooksManagementSystem.Migrations
 {
     [DbContext(typeof(BookDbContext))]
-    [Migration("20230818121215_init")]
+    [Migration("20230824132052_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -50,6 +50,24 @@ namespace BooksManagementSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Authors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 10,
+                            Country = "asda",
+                            FirstName = "asf",
+                            LastName = "gf"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 22,
+                            Country = "mari",
+                            FirstName = "tandashvili",
+                            LastName = "gsadasff"
+                        });
                 });
 
             modelBuilder.Entity("BooksManagementSystem.Entities.Book", b =>
@@ -64,6 +82,10 @@ namespace BooksManagementSystem.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ISBN")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -82,6 +104,18 @@ namespace BooksManagementSystem.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AuthorId = 1,
+                            Description = "Description",
+                            ISBN = "978-3-16-148410-0",
+                            PublicationYear = 1245,
+                            Rating = 9,
+                            Title = "Title"
+                        });
                 });
 
             modelBuilder.Entity("BooksManagementSystem.Entities.Book", b =>

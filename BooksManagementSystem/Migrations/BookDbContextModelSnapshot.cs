@@ -52,7 +52,7 @@ namespace BooksManagementSystem.Migrations
                         new
                         {
                             Id = 1,
-                            Age = 1,
+                            Age = 10,
                             Country = "asda",
                             FirstName = "asf",
                             LastName = "gf"

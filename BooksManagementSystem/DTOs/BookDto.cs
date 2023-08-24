@@ -1,10 +1,9 @@
-using System.ComponentModel.DataAnnotations;
+﻿using BooksManagementSystem.Entities;
 
-namespace BooksManagementSystem.Entities
+namespace BooksManagementSystem.DTOs
 {
-    public class Book
+    public class BookDto
     {
-        [Key]
         public int Id { get; set; }
         public string ISBN { get; set; }
         public int AuthorId { get; set; }
@@ -12,6 +11,7 @@ namespace BooksManagementSystem.Entities
         public int PublicationYear { get; set; }
         public string Description { get; set; }
         public int Rating { get; set; }
-        public virtual Author Author { get; set; } 
+        public AuthorDto Author { get; set; }
+
     }
 }

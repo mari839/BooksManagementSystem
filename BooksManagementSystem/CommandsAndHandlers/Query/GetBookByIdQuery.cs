@@ -1,9 +1,10 @@
-﻿using BooksManagementSystem.Entities;
+﻿using BooksManagementSystem.DTOs;
+using BooksManagementSystem.Entities;
 using MediatR;
 
 namespace BooksManagementSystem.CommandsAndHandlers.Query
 {
-    public class GetBookByIdQuery : IRequest<Book>
+    public class GetBookByIdQuery : IRequest<BookDto>
     {
         public int Id { get; set; } 
     }

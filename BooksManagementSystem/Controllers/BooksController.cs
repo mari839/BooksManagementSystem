@@ -1,5 +1,6 @@
 using BooksManagementSystem.CommandsAndHandlers.Command;
 using BooksManagementSystem.CommandsAndHandlers.Query;
+using BooksManagementSystem.DTOs;
 using BooksManagementSystem.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -19,17 +20,19 @@ namespace BooksManagementSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Book>> BookList()
+        public async Task<List<BookDto>> BookList()
         {
             var employee = await mediator.Send(new GetBookListQuery());
+
             return employee;
+
         }
 
         [HttpGet("{id}")]
-        public async Task<Book> BookById(int id)
+        public async Task<BookDto> BookById(int id)
         {
-            var employee = await mediator.Send(new GetBookByIdQuery() { Id = id});
-            return employee;
+            var book = await mediator.Send(new GetBookByIdQuery() { Id = id});
+            return book;
         }
 
         // POST: BooksController/Create

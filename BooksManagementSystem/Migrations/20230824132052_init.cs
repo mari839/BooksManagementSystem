@@ -3,6 +3,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace BooksManagementSystem.Migrations
 {
     /// <inheritdoc />
@@ -33,6 +35,7 @@ namespace BooksManagementSystem.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ISBN = table.Column<string>(type: "text", nullable: false),
                     AuthorId = table.Column<int>(type: "integer", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     PublicationYear = table.Column<int>(type: "integer", nullable: false),
@@ -49,6 +52,20 @@ namespace BooksManagementSystem.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Authors",
+                columns: new[] { "Id", "Age", "Country", "FirstName", "LastName" },
+                values: new object[,]
+                {
+                    { 1, 10, "asda", "asf", "gf" },
+                    { 2, 22, "mari", "tandashvili", "gsadasff" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "Id", "AuthorId", "Description", "ISBN", "PublicationYear", "Rating", "Title" },
+                values: new object[] { 1, 1, "Description", "978-3-16-148410-0", 1245, 9, "Title" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_AuthorId",
