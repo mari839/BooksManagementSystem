@@ -29,10 +29,18 @@ namespace BooksManagementSystem.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<BookDto> BookById(int id)
+        public async Task<ActionResult<BookDto>> BookById(int id)
         {
-            var book = await mediator.Send(new GetBookByIdQuery() { Id = id});
-            return book;
+            var book = await mediator.Send(new GetBookByIdQuery() { Id = id });
+            if(book != null)
+            {
+                return Ok(book);
+            }
+            else
+            {
+                return NotFound();
+
+            }
         }
 
         // POST: BooksController/Create
@@ -55,7 +63,14 @@ namespace BooksManagementSystem.Controllers
         [HttpDelete("id")]
         public async Task<int> Delete(int id)
         {
-            return await mediator.Send(new DeleteBookCommand(){ Id = id});
+            return await mediator.Send(new DeleteBookCommand() { Id = id });
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<BookDto>> getBookBySearchString(string search)
+        {
+            var book  = await mediator.Send(new SearchByQuery() { searchBy = search});
+            return Ok(book);
         }
     }
 }

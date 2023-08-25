@@ -43,5 +43,13 @@ namespace BooksManagementSystem.Repositories
             _bookDbContext.Books.Update(book);
             return await _bookDbContext.SaveChangesAsync();
         }
+
+        
+
+        public async Task<Book> searchBook(string searchString)
+        {
+            var result = await _bookDbContext.Books.Where(f => f.Title == searchString || f.ISBN == searchString).Include(a=> a.Author).FirstOrDefaultAsync();
+            return result;
+        }
     }
 }

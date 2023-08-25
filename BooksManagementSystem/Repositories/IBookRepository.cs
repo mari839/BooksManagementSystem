@@ -12,6 +12,7 @@ namespace BooksManagementSystem.Repositories
         //public Book searchByTitle(string title); //searches by title
         //public Book searchByAuthor(string author); 
         
+        Task<Book> searchBook(string searchString);
 
     }
 }
