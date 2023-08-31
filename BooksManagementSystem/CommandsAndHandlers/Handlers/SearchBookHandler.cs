@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BooksManagementSystem.CommandsAndHandlers.Handlers
 {
-    public class SearchBookHandler : IRequestHandler<SearchByQuery, BookDto>
+    public class SearchBookHandler : IRequestHandler<SearchByQuery, List<BookDto>>
     {
         private readonly IBookRepository _bookRepository;
         public SearchBookHandler(IBookRepository bookRepository)
@@ -15,11 +15,20 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
             _bookRepository = bookRepository;
         }
 
-        public async Task<BookDto> Handle(SearchByQuery request, CancellationToken cancellationToken)
+        public async Task<List<BookDto>> Handle(SearchByQuery request, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.searchBook(request.searchBy);
-            
-                BookDto booktoReturn = new BookDto
+
+
+            BookDto booktoReturn = new BookDto();
+
+
+            var books = await _bookRepository.searchBook(request.searchByQuery, request.searchById, request.searchByPublicationYear);
+            List<BookDto> result = new List<BookDto>();
+
+            foreach (var book in books)
+            {
+
+                booktoReturn = new BookDto
                 {
                     Id = book.Id,
                     ISBN = book.ISBN,
@@ -31,15 +40,21 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
                         FirstName = book.Author.FirstName,
                         Id = book.Author.Id,
                         LastName = book.Author.LastName,
-
+                        BookNamesList = book.Author.Books.Select(x => x.Title).ToList(),
                     },
                     AuthorId = book.AuthorId,
                     Title = book.Title,
                     PublicationYear = book.PublicationYear,
                     Rating = book.Rating,
                 };
-                return booktoReturn;
-            
+                result.Add(booktoReturn);
+            }
+
+            return result;
+
+
+
+
         }
     }
 }

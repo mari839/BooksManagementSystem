@@ -4,8 +4,12 @@ using MediatR;
 
 namespace BooksManagementSystem.CommandsAndHandlers.Query
 {
-    public class SearchByQuery : IRequest<BookDto>
+    public class SearchByQuery : IRequest<List<BookDto>>
     {
-        public string searchBy { get; set; }
+        public string? searchByQuery { get; set; }
+        public int? searchById { get; set; }
+
+        public int? searchByPublicationYear { get; set; }
     }
 }
+

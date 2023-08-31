@@ -61,6 +61,19 @@ namespace BooksManagementSystem.DbContexts
 
                 }
             );
+
+            modelBuilder.Entity<Book>().HasData(
+                new Book
+                {
+                    AuthorId = 2,
+                    ISBN = "222-3-16-148410-10",
+                    Description = "new description",
+                    PublicationYear = 1995,
+                    Rating = 9,
+                    Title = "newTitle",
+                    Id = 2,
+                }
+            );
         }
 
     }

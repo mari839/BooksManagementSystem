@@ -16,10 +16,12 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
             var book = await _bookRepository.getBookById(request.Id);
             if (book == null)
             {
-                return default;
+                cancellationToken.ThrowIfCancellationRequested();
+                
             }
             else
             {
+
                 book.Id = request.Id;
                 book.ISBN = request.ISBN;
                 book.Title = request.Title;

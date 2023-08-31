@@ -36,7 +36,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
                         FirstName = book.Author.FirstName,
                         Id = book.Author.Id,
                         LastName = book.Author.LastName,
-
+                        BookNamesList = book.Author.Books.Select(x => x.Title).ToList(),
                     },
                     AuthorId = book.AuthorId,
                     Title = book.Title,
@@ -50,9 +50,5 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
             return result;
         }
     }
-    //public async Task<List<Book>> Handle(GetBookListQuery request, CancellationToken cancellationToken)
-    //{
-    //    return await _bookRepository.getBooksList();
-    //}
 }
 
