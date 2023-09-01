@@ -16,7 +16,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
             var book = await _bookRepository.getBookById(request.Id);
             if(book == null)
             {
-                return default;
+                return 0;
             }
             else
             {

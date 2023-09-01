@@ -16,27 +16,32 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
         {
 
             //check if author id exist, if it doesn't exist it can be created 
-            var bookWithAuthorId = _bookRepository.searchBook(null, request.AuthorId, null);
-            Book book1 = new Book();
-
-            if (request.AuthorId == bookWithAuthorId.Id)
+            var bookWithAuthorId = await _bookRepository.searchBook(null, request.AuthorId, null);
+            var book1 = new Book();
+            foreach (var i in bookWithAuthorId)
             {
-
-                Book book = new Book
+                if (request.AuthorId == i.AuthorId)
                 {
-                    ISBN = request.ISBN,
-                    AuthorId = request.AuthorId,
-                    Title = request.Title,
-                    PublicationYear = request.PublicationYear,
-                    Description = request.Description,
-                    Rating = request.Rating,
 
-                };
-                book1 =  await _bookRepository.CreateBook(book);
+                    Book book = new Book
+                    {
+                        ISBN = request.ISBN,
+                        AuthorId = request.AuthorId,
+                        Title = request.Title,
+                        PublicationYear = request.PublicationYear,
+                        Description = request.Description,
+                        Rating = request.Rating,
+                    };
+                    book1 = await _bookRepository.CreateBook(book);
+                }
+                else
+                {
+                    return book1;
+                }
             }
-            else
+            if(book1.Id == 0)
             {
-                throw new NullReferenceException();
+                return null;
             }
             return book1;
         }

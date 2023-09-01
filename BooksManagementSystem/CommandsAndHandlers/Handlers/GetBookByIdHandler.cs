@@ -18,9 +18,12 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
         public async Task<BookDto> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
             var book = await _bookRepository.getBookById(request.Id);
-            
-                BookDto booktoReturn = new BookDto
+            var booktoReturn = new BookDto();
+            if (book != null)
+            {
+                booktoReturn = new BookDto
                 {
+                    Id = book.Id,
                     ISBN = book.ISBN,
                     Description = book.Description,
                     Author = new AuthorDto
@@ -38,7 +41,12 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
                     Rating = book.Rating,
 
                 };
-                return booktoReturn;
+            }
+            else
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+            return booktoReturn;
         }
     }
 }

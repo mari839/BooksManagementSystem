@@ -48,7 +48,15 @@ namespace BooksManagementSystem.Controllers
         public async Task<ActionResult<Book>> CreateBook(CreateBookCommand createBookCommand)
         {
             var result = await mediator.Send(createBookCommand);
-            return Ok(result);
+            if (result != null)
+            {
+
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
 
@@ -58,10 +66,10 @@ namespace BooksManagementSystem.Controllers
         {
 
             var bookToReturn = await mediator.Send(editBookCommand);
-            if(bookToReturn !=0)
+            if (bookToReturn != 0)
             {
 
-            return Ok(bookToReturn);
+                return Ok(bookToReturn);
             }
             else
             {
@@ -70,23 +78,30 @@ namespace BooksManagementSystem.Controllers
         }
 
         [HttpDelete("id")]
-        public async Task<int> Delete(int id)
+        public async Task<ActionResult<int>> Delete(int id)
         {
-            return await mediator.Send(new DeleteBookCommand() { Id = id });
+            var bookToReturn = await mediator.Send(new DeleteBookCommand() { Id = id });
+            if(bookToReturn != 0)
+            {
+                return bookToReturn;
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<BookDto>> getBookBySearchString(string? name, int? id, int? publicationYear)
+        public async Task<ActionResult<BookDto>> getBookBySearchString(string? name, int? authorId, int? publicationYear)
         {
 
-            var book = await mediator.Send(new SearchByQuery() { searchByQuery = name, searchById = id, searchByPublicationYear = publicationYear });
+            var book = await mediator.Send(new SearchByQuery() { searchByQuery = name, searchById = authorId, searchByPublicationYear = publicationYear });
             if (book == null)
             {
                 return NotFound();
             }
             else
             {
-
                 return Ok(book);
             }
         }
