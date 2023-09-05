@@ -1,23 +1,30 @@
 using Microsoft.EntityFrameworkCore;
 using BooksManagementSystem.Entities;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BooksManagementSystem.DbContexts
 {
     public class BookDbContext : DbContext
     {
-        protected readonly IConfiguration _configuration;
 
-
-        public BookDbContext(IConfiguration configuration)
+        public BookDbContext(DbContextOptions<BookDbContext> options) : base(options) 
         {
-            _configuration = configuration;
-        }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
         }
+        //protected readonly IConfiguration _configuration;
+
+
+        //public BookDbContext(IConfiguration configuration)
+        //{
+        //    _configuration = configuration;
+        //}
+
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //{
+        //    options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
+        //}
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }

@@ -3,11 +3,13 @@ using BooksManagementSystem.CommandsAndHandlers.Query;
 using BooksManagementSystem.DTOs;
 using BooksManagementSystem.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BooksManagementSystem.Controllers
 {
+    //[Authorize]
     [Route("api/books")]
     [ApiController]
     public class BooksController : ControllerBase
