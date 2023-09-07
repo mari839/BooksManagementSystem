@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BooksManagementSystem.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/books")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -29,7 +29,7 @@ namespace BooksManagementSystem.Controllers
             return employee;
 
         }
-
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<BookDto>> BookById(int id)
         {

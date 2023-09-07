@@ -1,6 +1,9 @@
-﻿namespace BooksManagementSystem.Repositories
+﻿using BooksManagementSystem.Entities;
+
+namespace BooksManagementSystem.Repositories
 {
-    public class IUserRepository
+    public interface IUserRepository
     {
+        Task<User> addUser(User user);
     }
 }

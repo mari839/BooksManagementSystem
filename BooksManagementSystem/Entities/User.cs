@@ -1,6 +1,8 @@
-﻿namespace BooksManagementSystem.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace BooksManagementSystem.Entities
 {
-    public class User
+    public class User : IdentityUser
     {
         public int UserId { get; set; }
         public string FirstName { get; set; }

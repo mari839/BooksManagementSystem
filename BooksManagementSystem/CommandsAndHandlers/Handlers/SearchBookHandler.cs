@@ -25,7 +25,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
             var books = await _bookRepository.searchBook(request.searchByQuery, request.searchById, request.searchByPublicationYear);
             List<BookDto> result = new List<BookDto>();
 
-            if (!result.Any())
+            if (!books.Any())
             {
                 return null;
             }

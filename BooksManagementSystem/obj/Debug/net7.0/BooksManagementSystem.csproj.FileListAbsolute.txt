@@ -58,3 +58,6 @@ C:\Users\user\source\repos\BooksManagementSystem\BooksManagementSystem\bin\Debug
 C:\Users\user\source\repos\BooksManagementSystem\BooksManagementSystem\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\user\source\repos\BooksManagementSystem\BooksManagementSystem\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\user\source\repos\BooksManagementSystem\BooksManagementSystem\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\user\source\repos\BooksManagementSystem\BooksManagementSystem\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\Users\user\source\repos\BooksManagementSystem\BooksManagementSystem\bin\Debug\net7.0\System.Web.Http.dll
+C:\Users\user\source\repos\BooksManagementSystem\BooksManagementSystem\bin\Debug\net7.0\Swashbuckle.Core.dll
