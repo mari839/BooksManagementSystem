@@ -7,19 +7,6 @@ namespace BooksManagementSystem.DbContexts
 {
     public class UserDbContext : IdentityDbContext<IdentityUser>
     {
-        //protected readonly IConfiguration _configuration;
-
-
-        //public UserDbContext(IConfiguration configuration)
-        //{
-        //    _configuration = configuration;
-        //}
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder options)
-        //{
-        //    options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
-        //}
-
         public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
         {
 
@@ -39,6 +26,5 @@ namespace BooksManagementSystem.DbContexts
                 );
         }
 
-        //public DbSet<User> Users { get; set; }
     }
 }

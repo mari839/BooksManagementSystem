@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BooksManagementSystem.Controllers
 {
-    [Authorize]
+    //[Authorize] 
     [Route("api/books")]
     [ApiController]
     public class BooksController : ControllerBase

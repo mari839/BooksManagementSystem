@@ -30,7 +30,7 @@ namespace BooksManagementSystem.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(UserForRegistrationDto request)
+        public async Task<ActionResult<string>> Register(UserForRegistrationDto request)
         {
             //check user exist
             var userExist = await _userManager.FindByEmailAsync(request.Email);
@@ -55,21 +55,11 @@ namespace BooksManagementSystem.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
             return StatusCode(StatusCodes.Status200OK);
 
         }
-
-        //private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        //{
-        //    using (var hmac = new HMACSHA512())
-        //    {
-        //        passwordSalt = hmac.Key;
-        //        passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-        //    }
-        //}
 
 
         [HttpPost("login")]
@@ -90,42 +80,24 @@ namespace BooksManagementSystem.Controllers
                 return Ok(token);
 
             }
-
-
             return Unauthorized();
-
-
-
-
         }
 
 
+          
         private string CreateToken(List<Claim> claims)
         {
-            
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JwtSettings:Key").Value));
 
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
-            var token = new JwtSecurityToken(claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: cred);
+            var token = new JwtSecurityToken(_configuration.GetSection("JwtSettings:Issuer").Value, _configuration.GetSection("JwtSettings:Audience").Value, claims: claims, expires: DateTime.Now.AddDays(1), signingCredentials: cred);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
             return jwt;
         }
-
-
-
-        //private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt) //we create nw computed hash value with the login password and check if resulting pass hash is same as stored it means user entered correct username
-        //{
-        //    using (var hmac = new HMACSHA512(user.PasswordSalt))
-        //    {
-        //        var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-        //        return computeHash.SequenceEqual(passwordHash); //we compare this byte by byte with password and returns true or false
-        //    }
-        //}
-
-
 
     }
 }
