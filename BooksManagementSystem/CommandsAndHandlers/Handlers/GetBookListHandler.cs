@@ -18,7 +18,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
 
         public async Task<List<BookDto>> Handle(GetBookListQuery request, CancellationToken cancellationToken)
         {
-            var books = await _bookRepository.getBooksList();
+            var books = await _bookRepository.GetBooksList();
             List<BookDto> result = new List<BookDto>();
 
             foreach (var book in books)

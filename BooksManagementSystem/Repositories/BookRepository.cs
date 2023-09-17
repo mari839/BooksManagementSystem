@@ -35,7 +35,7 @@ namespace BooksManagementSystem.Repositories
             return book;
         }
 
-        public async Task<List<Book>> getBooksList()
+        public async Task<List<Book>> GetBooksList()
         {
             var result = await _bookDbContext.Books.OrderBy(b => b.Id).Include(a => a.Author).ToListAsync();
             return result;
