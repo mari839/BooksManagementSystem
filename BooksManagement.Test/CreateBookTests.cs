@@ -1,30 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xunit;
 using BooksManagementSystem.Repositories;
 using BooksManagementSystem.Entities;
 using BooksManagementSystem.DbContexts;
 using BooksManagementSystem.CommandsAndHandlers.Handlers;
+using System.Security.Cryptography.X509Certificates;
+using BooksManagement.Test.Services;
 
 namespace BooksManagement.Test
 {
     public class CreateBookTests
     {
-        [Fact]
-        public void CreateBook_EveryFieldIsProvided()
+        private readonly IBookRepository _bookRepository;
+        public CreateBookTests()
         {
-            //The arrange, act, assert pattern.
-            //Arrange - setting up the test, initializing objects, getting a hold of test,dependencies of mocks.
-            //Act - executing the actual test. executing method we want to test.
-            //Assert - verifies that action we executed behaved as expected.
+            _bookRepository = new BookTestDataRepositoty();
+        }
 
+        [Fact]
+        public async Task CreateBook_EveryFieldIsProvided()
+        {
+            // Arrange
+            Book book = new Book();
 
-            //1.initialize mock repository
-            //2.create test of CreateBook method and check if it returns valid book.
-            var book = new Book()
-            var bookHandler = new CreateBookHandler();
+            book.Title = "Title";
+            book.Description = "Description";
+            book.AuthorId = 1;
+            book.PublicationYear = 1213;
+            book.Rating = 10;
+            book.ISBN = "Test";
+            book.Id = 4;
+
+            // Act
+            _bookRepository.CreateBook(book);
+            var result = _bookRepository.getBookById(book.Id).Result;
+
+            // Assert
+            Assert.Equal(book.Title, result.Title);
         }
     }
 }
