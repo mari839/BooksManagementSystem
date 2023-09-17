@@ -1,6 +1,0 @@
-C:\Users\user\source\repos\BooksManagementSystem\BooksManagement.Test\bin\Debug\net7.0\CoverletSourceRootsMapping
-C:\Users\user\source\repos\BooksManagementSystem\BooksManagement.Test\obj\Debug\net7.0\BooksManagement.Test.csproj.AssemblyReference.cache
-C:\Users\user\source\repos\BooksManagementSystem\BooksManagement.Test\obj\Debug\net7.0\BooksManagement.Test.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\user\source\repos\BooksManagementSystem\BooksManagement.Test\obj\Debug\net7.0\BooksManagement.Test.AssemblyInfoInputs.cache
-C:\Users\user\source\repos\BooksManagementSystem\BooksManagement.Test\obj\Debug\net7.0\BooksManagement.Test.AssemblyInfo.cs
-C:\Users\user\source\repos\BooksManagementSystem\BooksManagement.Test\obj\Debug\net7.0\BooksManagement.Test.csproj.CoreCompileInputs.cache
