@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BooksManagement.Test.Services
 {
-    internal class BookTestDataRepositoty : IBookTestDataRepository
+    internal class BookTestDataRepositoty : IBookRepository
     {
         private List<Book> _books;
         private List<Author> _authors;
@@ -46,7 +46,6 @@ namespace BooksManagement.Test.Services
                 Rating = 10,
             };
 
-            _books = new List<Book> { book1, book2, book3 };
 
             var author1 = new Author()
             {
@@ -65,18 +64,42 @@ namespace BooksManagement.Test.Services
                 LastName = "Test",
             };
 
+            book1.Author = author1;
+            book2.Author = author2;
+
             _authors = new List<Author> { author1, author2 };
+            _books = new List<Book> { book1, book2, book3 };
+
         }
         public List<Book> Books => throw new NotImplementedException();
 
-        public Book getBookByIdTest(int id)
+        IQueryable<Book> IBookRepository.Books => throw new NotImplementedException();
+
+        public async Task<Book> CreateBook(Book book)
         {
-            return _books.Where(b => b.Id == id).FirstOrDefault().GroupJoin(_authors, c => c.AuthorId, a => a.Id, (book, author) => new(book));
+            _books.Add(book);
+            return book;
+
         }
 
-        public List<Book?> getBooksListTest()
+        public Task<int> deleteBook(int id)
         {
-            return _books.Join(_authors, b => b.AuthorId, a => a.Id, (book, author) => new(book)).ToList();
+            throw new NotImplementedException();
+        }
+
+        public async Task<Book>? getBookById(int id)
+        {
+            return _books.Where(b => b.Id == id).FirstOrDefault();
+        }
+
+        public Task<List<Book>> GetBooksList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Book>> searchBook(string? searchString, int? searchId, int? searchByPublicationYear)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Book> searchBookByQuery(string query)
@@ -84,37 +107,9 @@ namespace BooksManagement.Test.Services
             return _books.ToList();
         }
 
-
-
-
-        //public Task<Book> CreateBook(Book book)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<int> deleteBook(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Book getBookById(int id)
-        //{
-        //    return _books.FirstOrDefault(Books => Books.Id == id);
-        //}
-
-        //public Task<List<Book>> getBooksList()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<List<Book>> searchBook(string? searchString, int? searchId, int? searchByPublicationYear)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task<int> updateBook(Book book)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public Task<int> updateBook(Book book)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
                     return book1;
                 }
             }
-            if(book1.Id == 0)
+            if (book1.Id == 0)
             {
                 return null;
             }

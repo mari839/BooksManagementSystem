@@ -6,7 +6,7 @@ namespace BooksManagementSystem.Repositories
     {
         IQueryable<Book> Books { get; }
 
-        Task<List<Book>> getBooksList(); //GET /api/books: Retrieve a paginated list of all books, with filtering and sorting options.
+        Task<List<Book>> GetBooksList(); //GET /api/books: Retrieve a paginated list of all books, with filtering and sorting options.
         Task<Book> getBookById(int id); //GET /api/books/{id}: Retrieve details of a specific book by its ID.
         Task<Book> CreateBook(Book book); //POST /api/books: Create a new book.
         Task<int> updateBook(Book book); //PUT /api/books/{id}: Update the details of a specific book.
