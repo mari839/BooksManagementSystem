@@ -17,7 +17,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
 
         public async Task<BookDto> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.getBookById(request.Id);
+            var book = await _bookRepository.GetBookById(request.Id);
             var booktoReturn = new BookDto();
             if (book != null)
             {

@@ -13,7 +13,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
         }
         public async Task<int> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.getBookById(request.Id);
+            var book = await _bookRepository.GetBookById(request.Id);
             if (book == null)
             {
                 return 0;

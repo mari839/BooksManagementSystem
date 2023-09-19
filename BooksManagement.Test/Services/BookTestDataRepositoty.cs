@@ -1,5 +1,6 @@
 ﻿using BooksManagementSystem.Entities;
 using BooksManagementSystem.Repositories;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,9 +72,8 @@ namespace BooksManagement.Test.Services
             _books = new List<Book> { book1, book2, book3 };
 
         }
-        public List<Book> Books => throw new NotImplementedException();
-
-        IQueryable<Book> IBookRepository.Books => throw new NotImplementedException();
+       
+        IQueryable<Book> IBookRepository.Books => _books.AsQueryable();
 
         public async Task<Book> CreateBook(Book book)
         {
@@ -82,34 +82,57 @@ namespace BooksManagement.Test.Services
 
         }
 
-        public Task<int> deleteBook(int id)
+        public async Task<int> deleteBook(int id)
         {
-            throw new NotImplementedException();
+            var bookToDelete = await GetBookById(id);
+            _books.Remove(bookToDelete);
+            return bookToDelete.Id;
         }
 
-        public async Task<Book>? getBookById(int id)
+        public async Task<Book>? GetBookById(int id)
         {
-            return _books.Where(b => b.Id == id).FirstOrDefault();
+            var res = _books.Where(b => b.Id == id).FirstOrDefault();
+            if(res == null)
+            {
+                return null;
+            }
+            else
+            {
+                return res;
+            }
         }
 
-        public Task<List<Book>> GetBooksList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Book>> searchBook(string? searchString, int? searchId, int? searchByPublicationYear)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Book> searchBookByQuery(string query)
+        public async Task<List<Book>> GetBooksList()
         {
             return _books.ToList();
         }
 
-        public Task<int> updateBook(Book book)
+        public async Task<List<Book>> SearchBook(string? searchString, int? searchId, int? searchByPublicationYear)
         {
-            throw new NotImplementedException();
+            List<Book> booksToReturn = new List<Book>();
+            if (!searchString.IsNullOrEmpty())
+            {
+                booksToReturn = _books.Where(b=>b.Title == searchString || b.ISBN == searchString).ToList();
+            }else if (searchId != null)
+            {
+                booksToReturn = _books.Where(b=>b.Id == searchId.Value).ToList();
+            }else if(searchByPublicationYear != null)
+            {
+                booksToReturn = _books.Where(b=>b.PublicationYear == searchByPublicationYear).ToList();
+            }
+            else
+            {
+                return null;
+            }
+            return booksToReturn;
+        }
+
+        public async Task<int> UpdateBook(Book book)
+        {
+            var bookToDelete = await GetBookById(book.Id);
+            _books.Remove(bookToDelete);
+            _books.Add(book);
+            return book.Id;
         }
     }
 }

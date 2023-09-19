@@ -13,7 +13,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
         }
         public async Task<int> Handle(EditBookCommand request, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.getBookById(request.Id);
+            var book = await _bookRepository.GetBookById(request.Id);
             if (book == null)
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -29,7 +29,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
                 book.Description = request.Description;
                 book.Rating = request.Rating;
             }
-            return await _bookRepository.updateBook(book);
+            return await _bookRepository.UpdateBook(book);
         }
     }
 }

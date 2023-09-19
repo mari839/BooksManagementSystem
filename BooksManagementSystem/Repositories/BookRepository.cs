@@ -29,7 +29,7 @@ namespace BooksManagementSystem.Repositories
             return await _bookDbContext.SaveChangesAsync();
         }
 
-        public async Task<Book> getBookById(int id)
+        public async Task<Book> GetBookById(int id)
         {
             var book = await _bookDbContext.Books.Where(x => x.Id.Equals(id)).Include(a => a.Author).FirstOrDefaultAsync();
             return book;
@@ -41,7 +41,7 @@ namespace BooksManagementSystem.Repositories
             return result;
         }
 
-        public async Task<int> updateBook(Book book)
+        public async Task<int> UpdateBook(Book book)
         {
             int a = 0;
 
@@ -56,9 +56,7 @@ namespace BooksManagementSystem.Repositories
             return a;
         }
 
-
-
-        public async Task<List<Book>> searchBook(string? searchString, int? searchId, int? searchByPublicationYear)
+        public async Task<List<Book>> SearchBook(string? searchString, int? searchId, int? searchByPublicationYear)
         {
 
             IQueryable<Book> bookquer = _bookDbContext.Books;

@@ -22,7 +22,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
             BookDto booktoReturn = new BookDto();
 
 
-            var books = await _bookRepository.searchBook(request.searchByQuery, request.searchById, request.searchByPublicationYear);
+            var books = await _bookRepository.SearchBook(request.searchByQuery, request.searchById, request.searchByPublicationYear);
             List<BookDto> result = new List<BookDto>();
 
             if (!books.Any())

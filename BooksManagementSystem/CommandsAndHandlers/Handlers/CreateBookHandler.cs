@@ -16,7 +16,7 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
         {
 
             //check if author id exist, if it doesn't exist it can be created 
-            var bookWithAuthorId = await _bookRepository.searchBook(null, request.AuthorId, null);
+            var bookWithAuthorId = await _bookRepository.SearchBook(null, request.AuthorId, null);
             var book1 = new Book();
             foreach (var i in bookWithAuthorId)
             {

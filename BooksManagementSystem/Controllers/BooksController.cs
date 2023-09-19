@@ -94,7 +94,7 @@ namespace BooksManagementSystem.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<ActionResult<BookDto>> getBookBySearchString(string? name, int? authorId, int? publicationYear)
+        public async Task<ActionResult<BookDto>> GetBookBySearchString(string? name, int? authorId, int? publicationYear)
         {
 
             var book = await mediator.Send(new SearchByQuery() { searchByQuery = name, searchById = authorId, searchByPublicationYear = publicationYear });
