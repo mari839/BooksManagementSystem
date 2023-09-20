@@ -72,7 +72,7 @@ namespace BooksManagement.Test.Services
             _books = new List<Book> { book1, book2, book3 };
 
         }
-       
+
         IQueryable<Book> IBookRepository.Books => _books.AsQueryable();
 
         public async Task<Book> CreateBook(Book book)
@@ -85,14 +85,21 @@ namespace BooksManagement.Test.Services
         public async Task<int> deleteBook(int id)
         {
             var bookToDelete = await GetBookById(id);
-            _books.Remove(bookToDelete);
-            return bookToDelete.Id;
+            if (bookToDelete != null)
+            {
+                _books.Remove(bookToDelete);
+                return bookToDelete.Id;
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public async Task<Book>? GetBookById(int id)
         {
             var res = _books.Where(b => b.Id == id).FirstOrDefault();
-            if(res == null)
+            if (res == null)
             {
                 return null;
             }
@@ -112,13 +119,15 @@ namespace BooksManagement.Test.Services
             List<Book> booksToReturn = new List<Book>();
             if (!searchString.IsNullOrEmpty())
             {
-                booksToReturn = _books.Where(b=>b.Title == searchString || b.ISBN == searchString).ToList();
-            }else if (searchId != null)
+                booksToReturn = _books.Where(b => b.Title == searchString || b.ISBN == searchString).ToList();
+            }
+            else if (searchId != null)
             {
-                booksToReturn = _books.Where(b=>b.Id == searchId.Value).ToList();
-            }else if(searchByPublicationYear != null)
+                booksToReturn = _books.Where(b => b.Id == searchId.Value).ToList();
+            }
+            else if (searchByPublicationYear != null)
             {
-                booksToReturn = _books.Where(b=>b.PublicationYear == searchByPublicationYear).ToList();
+                booksToReturn = _books.Where(b => b.PublicationYear == searchByPublicationYear).ToList();
             }
             else
             {
