@@ -13,7 +13,7 @@ using System.Net;
 using System.Text;
 using MySqlX.XDevAPI;
 
-namespace BooksManagement.Test
+namespace BooksManagement.Test.RepositoryTesting
 {
     public class CreateBookTests
     {
@@ -54,7 +54,7 @@ namespace BooksManagement.Test
         //    //Arrange
         //    Book book = new Book();
 
-            
+
         //    book.Title = "Title";
         //    book.Description = "Description";
         //    book.AuthorId = 1;
@@ -62,10 +62,10 @@ namespace BooksManagement.Test
         //    book.Rating = 10;
         //    book.ISBN = "Test";
         //    book.Id = 4;
-            
+
 
         //    //act
-            
+
         //    var res = _bookRepository.CreateBook(book);
 
         //    // Serialize the request data to JSON

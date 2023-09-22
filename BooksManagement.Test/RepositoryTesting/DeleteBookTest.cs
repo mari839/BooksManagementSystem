@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BooksManagement.Test
+namespace BooksManagement.Test.RepositoryTesting
 {
     public class DeleteBookTest
     {

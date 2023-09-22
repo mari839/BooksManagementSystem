@@ -4,6 +4,7 @@ using BooksManagementSystem.DTOs;
 using BooksManagementSystem.Entities;
 using BooksManagementSystem.Repositories;
 using MediatR;
+using System.Web.Http.ModelBinding;
 
 namespace BooksManagementSystem.CommandsAndHandlers.Handlers
 {
@@ -17,7 +18,8 @@ namespace BooksManagementSystem.CommandsAndHandlers.Handlers
 
         public async Task<BookDto> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.GetBookById(request.Id);
+            
+                var book = await _bookRepository.GetBookById(request.Id);
             var booktoReturn = new BookDto();
             if (book != null)
             {

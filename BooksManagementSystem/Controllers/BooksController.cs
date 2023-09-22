@@ -24,6 +24,12 @@ namespace BooksManagementSystem.Controllers
         [HttpGet]
         public async Task<List<BookDto>> BookList()
         {
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
             var employee = await mediator.Send(new GetBookListQuery());
 
             return employee;
@@ -33,6 +39,11 @@ namespace BooksManagementSystem.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BookDto>> BookById(int id)
         {
+            //if (!ModelState.IsValid) 
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
             var book = await mediator.Send(new GetBookByIdQuery() { Id = id });
             if (book != null)
             {
@@ -49,6 +60,11 @@ namespace BooksManagementSystem.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<Book>> CreateBook(CreateBookCommand createBookCommand)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var result = await mediator.Send(createBookCommand);
             if (result != null)
             {
@@ -66,6 +82,10 @@ namespace BooksManagementSystem.Controllers
         [HttpPut("edit")]
         public async Task<ActionResult<int>> Edit(EditBookCommand editBookCommand)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             var bookToReturn = await mediator.Send(editBookCommand);
             if (bookToReturn != 0)
@@ -82,6 +102,11 @@ namespace BooksManagementSystem.Controllers
         [HttpDelete("id")]
         public async Task<ActionResult<int>> Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var bookToReturn = await mediator.Send(new DeleteBookCommand() { Id = id });
             if(bookToReturn != 0)
             {
@@ -96,6 +121,10 @@ namespace BooksManagementSystem.Controllers
         [HttpGet("search")]
         public async Task<ActionResult<BookDto>> GetBookBySearchString(string? name, int? authorId, int? publicationYear)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             var book = await mediator.Send(new SearchByQuery() { searchByQuery = name, searchById = authorId, searchByPublicationYear = publicationYear });
             if (book == null)
